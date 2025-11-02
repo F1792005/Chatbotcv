@@ -1,13 +1,16 @@
 FROM python:3.12-slim
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
+# Tạo thư mục làm việc
 WORKDIR /app
 
-# Nếu bạn có requirements.txt thì dùng nó để cài dependencies
-COPY requirements.txt ./
-RUN pip install -r requirements.txt
+# Copy file requirements.txt từ thư mục con app/
+COPY app/requirements.txt .
 
-# Copy toàn bộ project
-COPY . .
+# Cài đặt dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy toàn bộ mã nguồn trong app/ vào container
+COPY app/ .
+
+# Chạy ứng dụng FastAPI bằng Uvicorn
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
