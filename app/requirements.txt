@@ -1,0 +1,18 @@
+fastapi
+uvicorn
+python-dotenv
+google-generativeai
+<<<<<<< HEAD
+#requests
+# numpy==1.24.3
+# openai==1.3.0
+# azure-identity
+# azure-core
+# huggingface-hub
+# transformers
+# langchain
+# torch
+# together
+# dotenv
+=======
+>>>>>>> aa62c9e69039272351a7e15cddd7340bf9707653
