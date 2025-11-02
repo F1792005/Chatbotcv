@@ -1,5 +1,0 @@
-# Cài uv nếu chưa có
-pip install uv
-
-# Tạo lock file
-uv lock
