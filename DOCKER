@@ -3,16 +3,11 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 WORKDIR /app
 
-# Cài dependencies từ pyproject.toml (không cần uv.lock)
-RUN --mount=type=cache,target=/root/.cache/uv \
-    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --no-install-project
+# Nếu bạn có requirements.txt thì dùng nó để cài dependencies
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
 
-# Copy toàn bộ project vào container
-ADD . /app
+# Copy toàn bộ project
+COPY . .
 
-# Cài các dependencies còn lại
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync
-
-CMD ["uv", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
